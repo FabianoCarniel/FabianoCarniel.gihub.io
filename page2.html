@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 2</title>
+    <style>
+        p {
+            font-size: 20px; /* Tamanho da fonte em pixels */
+        }
+        button {
+            background-color: #00E3CC; /* Cor de fundo azul mais forte */
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: lightblue; /* Cor de fundo azul claro ao passar o mouse */
+        }
+        button:focus {
+            background-color: #009688; /* Cor de fundo azul mais forte quando o botão está focado */
+            outline: none; /* Remove a borda de foco padrão */
+        }
+        #resposta {
+            color: red; /* Cor do texto vermelho por padrão */
+        }
+        #resposta.acertou {
+            color: green; /* Cor do texto verde quando a resposta é 'Acertouuu' */
+        }
+        #direcionar {
+            display: none; /* Esconde o botão inicialmente */
+            background-color: hotpink; /* Cor de fundo hotpink */
+        }
+    </style>
+</head>
+<body>
+    <p>Antes de iniciar, farei um pequeno teste para saber se você é realmente o meu amorzinho.</p>
+    <p>O que o Fabianinho mais gosta em você?</p>
+    <input type="radio" id="opcao1" name="opcao" value="Bumbum">
+    <label for="opcao1">Bumbum</label><br>
+    <input type="radio" id="opcao2" name="opcao" value="Pé">
+    <label for="opcao2">Pé</label><br>
+    <input type="radio" id="opcao3" name="opcao" value="Bíceps">
+    <label for="opcao3">Bíceps</label><br>
+    <input type="radio" id="opcao4" name="opcao" value="Seu rostinho doce">
+    <label for="opcao4">Seu rostinho doce</label><br>
+    <iframe src="https://giphy.com/embed/VbnUQpnihPSIgIXuZv" width="384" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    <br>
+    <button onclick="verificarResposta()">Verificar Resposta</button>
+    <p id="resposta"></p>
+    <button id="direcionar">Vamos começar</button>
+
+    <script>
+        document.getElementById('direcionar').addEventListener('click', function() {
+            window.location.href = 'file:///C:/Users/Fabiano/PycharmProjects/pythonProjectPage/.venv/Scripts/page3.html';
+        });
+
+        function verificarResposta() {
+            var opcaoSelecionada = document.querySelector('input[name="opcao"]:checked');
+            var respostaElemento = document.getElementById('resposta');
+            var direcionarBotao = document.getElementById('direcionar');
+            if (opcaoSelecionada) {
+                var resposta = '';
+                if (opcaoSelecionada.value === 'Bumbum') {
+                    resposta = 'Hmm... foi quase';
+                } else if (opcaoSelecionada.value === 'Pé') {
+                    resposta = 'Claro que não';
+                } else if (opcaoSelecionada.value === 'Bíceps') {
+                    resposta = 'Tenho medo';
+                } else if (opcaoSelecionada.value === 'Seu rostinho doce') {
+                    resposta = 'Acertouuu';
+                    respostaElemento.classList.add('acertou');
+                    direcionarBotao.style.display = 'block'; // Mostra o botão para direcionar
+                }
+                respostaElemento.textContent = resposta;
+            } else {
+                respostaElemento.textContent = 'Por favor, selecione uma opção.';
+                respostaElemento.classList.remove('acertou');
+                direcionarBotao.style.display = 'none'; // Esconde o botão se nenhuma opção for selecionada
+            }
+        }
+    </script>
+</body>
+</html>

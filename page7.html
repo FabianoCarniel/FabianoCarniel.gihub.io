@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 5</title>
+    <style>
+        #coracao {
+            color: pink;
+            font-size: 100px;
+            cursor: pointer;
+            text-align: center;
+        }
+        #presente {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            color: #ff1493; /* rosa mais forte */
+            margin-top: 20px;
+        }
+        #presente p {
+            margin-top: 20px;
+        }
+        #botao {
+            display: none;
+            background-color: #00E3CC; /* Cor de fundo azul mais forte */
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        #botao:hover {
+            background-color: lightblue; /* Cor de fundo azul claro ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div id="coracao" onclick="mostrarPresente()">&#10084;</div>
+    <div id="presente">
+        <p>Ganhou um ano de Crunchyroll</p>
+        <iframe src="https://giphy.com/embed/zZC2AqB84z7zFnlkbF" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/iQiyiOfficial-anime-anya-spy-x-family-zZC2AqB84z7zFnlkbF"></a></p>
+    </div>
+    <button id="botao" onclick="window.location.href = 'file:///C:/Users/Fabiano/PycharmProjects/pythonProjectPage/.venv/Scripts/page8.html';">Será que tem mais??</button>
+
+    <script>
+        function mostrarPresente() {
+            var presente = document.getElementById("presente");
+            var botao = document.getElementById("botao");
+            if (presente.style.display === "none") {
+                presente.style.display = "block";
+                botao.style.display = "block";
+            } else {
+                presente.style.display = "none";
+                botao.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

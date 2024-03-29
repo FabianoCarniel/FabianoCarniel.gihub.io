@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 30%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            margin-top: 20px;
+            width: 60%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #00E3CC;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: lightblue;
+        }
+
+        button:focus {
+            background-color: #009688;
+            outline: none;
+        }
+
+        #resposta {
+            color: red;
+            margin-top: 20px;
+        }
+
+        #resposta.acertou {
+            color: green;
+        }
+
+        #direcionar {
+            display: none;
+            background-color: hotpink;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quero ver o quanto lembra</h1>
+    <img src="https://imgur.com/w6jvVVk.jpg" alt="Imagem Desafio">
+    <input type="text" id="localInput" placeholder="Em qual local esta imagem tirada?">
+    <button onclick="verificarResposta()">Verificar Resposta</button>
+    <p id="resposta"></p>
+    <button onclick="irParaProxima()" id="direcionar" class="botao">Próxima</button>
+
+    <script>
+        function verificarResposta() {
+            var resposta = document.getElementById('localInput').value.trim();
+            var respostaElemento = document.getElementById('resposta');
+
+            if (resposta.toLowerCase() === 'torres') {
+                respostaElemento.textContent = 'Eita, acertou todas';
+                respostaElemento.classList.add('acertou');
+                document.getElementById('direcionar').style.display = 'block';
+            } else {
+                respostaElemento.textContent = 'Tente novamente';
+                respostaElemento.classList.remove('acertou');
+                document.getElementById('direcionar').style.display = 'none';
+            }
+        }
+
+        function irParaProxima() {
+            window.location.href = 'file:///C:/Users/Fabiano/PycharmProjects/pythonProjectPage/.venv/Scripts/page7.html';
+        }
+    </script>
+</body>
+</html>
+

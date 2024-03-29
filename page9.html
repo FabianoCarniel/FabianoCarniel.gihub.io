@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Adivinhação</title>
+    <style>
+        #coracao {
+            color: pink;
+            font-size: 24px;
+        }
+        #palavra {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        #letra {
+            margin-top: 20px;
+            font-size: 18px;
+            display: inline-block;
+        }
+        #verificarBotao {
+            margin-top: 20px;
+            font-size: 18px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: inline-block;
+            background-color: #00E3CC; /* Cor de fundo azul */
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #verificarBotao:hover {
+            background-color: #00B3A8; /* Cor de fundo azul mais escura ao passar o mouse */
+        }
+        #novoBotao {
+            background-color: pink; /* Cor de fundo rosa */
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: none; /* Inicialmente oculto */
+        }
+        #novoBotao:hover {
+            background-color: hotpink; /* Cor de fundo rosa mais escuro ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span id="coracao">&#10084;&#10084;&#10084;&#10084;&#10084;</span>
+        <div id="palavra">_ _   _ _ _ _ _ _ _   _ _ _ _ _</div>
+        <input type="text" id="letra" maxlength="1" placeholder="Digite uma letra">
+        <button id="verificarBotao" onclick="verificarLetra()">Verificar Letra</button>
+    </div>
+
+    <button id="novoBotao" onclick="proximaPagina()">Era isso mesmo</button>
+
+    <script>
+        var palavra = "O Fabianinho nao gosta".toUpperCase();
+        var letrasCertas = new Array(palavra.length).fill(false);
+        var coracoes = 5;
+
+        function verificarLetra() {
+            var letraDigitada = document.getElementById("letra").value.toUpperCase();
+            if (letraDigitada.length !== 1 || !/^[A-Z]+$/.test(letraDigitada)) {
+                alert("Por favor, digite uma letra válida.");
+                return;
+            }
+
+            var acertou = false;
+            for (var i = 0; i < palavra.length; i++) {
+                if (palavra[i] === letraDigitada) {
+                    letrasCertas[i] = true;
+                    acertou = true;
+                }
+            }
+
+            if (!acertou) {
+                coracoes--;
+                atualizarCoracoes();
+            }
+
+            atualizarPalavra();
+
+            if (coracoes === 0) {
+                alert("Você perdeu! A palavra era: " + palavra);
+            }
+
+            document.getElementById("letra").value = ''; // Limpar o campo após verificar
+        }
+
+        function atualizarPalavra() {
+            var palavraAtualizada = "";
+            var palavraConcluida = true;
+            for (var i = 0; i < palavra.length; i++) {
+                if (letrasCertas[i]) {
+                    palavraAtualizada += palavra[i];
+                } else if (palavra[i] === ' ') {
+                    palavraAtualizada += "&nbsp;&nbsp;&nbsp;"; // Espaço em branco
+                } else {
+                    palavraAtualizada += "_ ";
+                    palavraConcluida = false; // Ainda há traços na palavra
+                }
+            }
+            document.getElementById("palavra").innerHTML = palavraAtualizada.trim();
+
+            if (palavraConcluida) {
+                document.getElementById("novoBotao").style.display = "block";
+            }
+        }
+
+        function atualizarCoracoes() {
+            var coracoesHtml = "";
+            for (var i = 0; i < coracoes; i++) {
+                coracoesHtml += "&#10084;";
+            }
+            document.getElementById("coracao").innerHTML = coracoesHtml;
+        }
+
+        function proximaPagina() {
+            window.location.href = 'file:///C:/Users/Fabiano/PycharmProjects/pythonProjectPage/.venv/Scripts/page10.html';
+        }
+
+        function acaoDoNovoBotao() {
+            alert("Ação do Novo Botão!");
+        }
+
+        atualizarPalavra();
+        atualizarCoracoes();
+    </script>
+</body>
+</html>
+

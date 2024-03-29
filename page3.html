@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(6, 200px);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .memory-card {
+            width: 200px;
+            height: 200px;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+        .memory-card img {
+            display: none;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #next-page-button {
+            display: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vamos testar a sua capacidade mental</h1>
+    <div class="memory-game"></div>
+    <p id="congrats-message" style="display: none;">Droga, parece que você é inteligente mesmo</p>
+   <button id="next-page-button" onclick="window.location.href = 'page4.html';" style="display: none;">Próxima Página</button>
+
+    <script>
+        const cards = document.querySelector('.memory-game');
+        const images = [
+            'https://imgur.com/hyvLiDk.jpg',
+            'https://imgur.com/KJCNf8S.jpg',
+            'https://imgur.com/V9sJ3Fr.jpg',
+            'https://imgur.com/oyPyfQf.jpg',
+            'https://imgur.com/9JD5KfL.jpg',
+            'https://imgur.com/6EvqzFP.jpg'
+        ];
+        const duplicatedImages = [...images, ...images];
+        const shuffledImages = duplicatedImages.sort(() => Math.random() - 0.5);
+        shuffledImages.forEach((imageUrl, index) => {
+            const card = document.createElement('div');
+            card.classList.add('memory-card');
+            card.dataset.framework = index + 1;
+            const image = document.createElement('img');
+            image.src = imageUrl;
+            image.alt = index + 1;
+            card.appendChild(image);
+            cards.appendChild(card);
+        });
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let foundCards = 0;
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+            this.querySelector('img').style.display = 'block';
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+            secondCard = this;
+            checkForMatch();
+        }
+        function checkForMatch() {
+            let isMatch = firstCard.querySelector('img').src === secondCard.querySelector('img').src;
+            isMatch ? disableCards() : unflipCards();
+        }
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            firstCard.classList.add('found');
+            secondCard.classList.add('found');
+            foundCards += 2;
+            checkForWin();
+            resetBoard();
+        }
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.querySelector('img').style.display = 'none';
+                secondCard.querySelector('img').style.display = 'none';
+                resetBoard();
+            }, 1000);
+        }
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+        function checkForWin() {
+            if (foundCards === shuffledImages.length) {
+                document.getElementById('congrats-message').style.display = 'block';
+                document.getElementById('next-page-button').style.display = 'block';
+            }
+        }
+        cards.querySelectorAll('.memory-card').forEach(card => card.addEventListener('click', flipCard));
+    </script>
+</body>
+</html>
